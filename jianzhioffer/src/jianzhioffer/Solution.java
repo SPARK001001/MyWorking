@@ -1569,5 +1569,43 @@ public ArrayList<Integer> FindNumbersWithSum(int [] array,int sum) {
         return list;
     }
 			    	    	 */
+		//42求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+			    	    	
+
+//			    	    		解题思路：
+//			    	    		1.需利用逻辑与的短路特性实现递归终止。 2.当n==0时，(n>0)&&((sum+=Sum_Solution(n-1))>0)只执行前面的判断，为false，然后直接返回0；
+//			    	    		3.当n>0时，执行sum+=Sum_Solution(n-1)，实现递归计算Sum_Solution(n)。
+			    	    		    public int Sum_Solution(int n) {
+			    	    		        int sum = n;
+			    	    		        boolean ans = (n>0)&&((sum+=Sum_Solution(n-1))>0);
+			    	    		        return sum;
+			    	    		    }
+	//43 写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。
+			    	 /*
+			    	  * 链接：https://www.nowcoder.com/questionTerminal/59ac416b4b944300b617d4f7f111b215
+						来源：牛客网
+						
+						首先看十进制是如何做的： 5+7=12，三步走
+						第一步：相加各位的值，不算进位，得到2。
+						第二步：计算进位值，得到10. 如果这一步的进位值为0，那么第一步得到的值就是最终结果。
+						
+						第三步：重复上述两步，只是相加的值变成上述两步的得到的结果2和10，得到12。
+						
+						同样我们可以用三步走的方式计算二进制值相加： 5-101，7-111 第一步：相加各位的值，不算进位，得到010，二进制每位相加就相当于各位做异或操作，101^111。
+						
+						第二步：计算进位值，得到1010，相当于各位做与操作得到101，再向左移一位得到1010，(101&111)<<1。
+						
+						第三步重复上述两步， 各位相加 010^1010=1000，进位值为100=(010&1010)<<1。
+						     继续重复上述两步：1000^100 = 1100，进位值为0，跳出循环，1100为最终结果。
+			    	  */
+
+			    	    		    	public int Add(int num1,int num2) {
+			    	    		    	        while (num2!=0) {
+			    	    		    	            int temp = num1^num2;
+			    	    		    	            num2 = (num1&num2)<<1;
+			    	    		    	            num1 = temp;
+			    	    		    	        }
+			    	    		    	        return num1;
+			    	    		    	    }
 					
 }
