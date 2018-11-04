@@ -1569,6 +1569,7 @@ public ArrayList<Integer> FindNumbersWithSum(int [] array,int sum) {
         return list;
     }
 			    	    	 */
+<<<<<<< HEAD
 		//42求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
 			    	    	
 
@@ -1607,5 +1608,177 @@ public ArrayList<Integer> FindNumbersWithSum(int [] array,int sum) {
 			    	    		    	        }
 			    	    		    	        return num1;
 			    	    		    	    }
+=======
+//42左旋转字符串
+			    	    
+			    	    		public String LeftRotateString(String str,int n) {
+			    	    		        char[] chars = str.toCharArray();        
+			    	    		        if(chars.length < n) return "";
+			    	    		        reverse(chars, 0, n-1);
+			    	    		        reverse(chars, n, chars.length-1);
+			    	    		        reverse(chars, 0, chars.length-1);
+			    	    		        StringBuilder sb = new StringBuilder(chars.length);
+			    	    		        for(char c:chars){
+			    	    		            sb.append(c);
+			    	    		        }
+			    	    		        return sb.toString();
+			    	    		    }
+			    	    		     
+			    	    		    public void reverse(char[] chars,int low,int high){
+			    	    		        char temp;
+			    	    		        while(low<high){
+			    	    		            temp = chars[low];
+			    	    		            chars[low] = chars[high];
+			    	    		            chars[high] = temp;
+			    	    		            low++;
+			    	    		            high--;
+			    	    		        }
+
+			    	    		        
+>>>>>>> refs/remotes/origin/master
 					
+			    	    		    	}
+	//42.翻转单词顺序列
+			    	    		    /*
+			    	    		    算法思想：先翻转整个句子，然后，依次翻转每个单词。
+			    	    		    依据空格来确定单词的起始和终止位置
+			    	    		*/
+			    	    		   
+
+			    	    		    	public String ReverseSentence(String str) {
+			    	    		    	        char[] chars = str.toCharArray();
+			    	    		    	        reverse(chars,0,chars.length - 1);
+			    	    		    	        int blank = -1;
+			    	    		    	        for(int i = 0;i < chars.length;i++){
+			    	    		    	            if(chars[i] == ' '){ 
+			    	    		    	                int nextBlank = i;
+			    	    		    	                reverse(chars,blank + 1,nextBlank - 1);
+			    	    		    	                blank = nextBlank;
+			    	    		    	            }
+			    	    		    	        }
+			    	    		    	        reverse(chars,blank + 1,chars.length - 1);//最后一个单词单独进行反转
+			    	    		    	        return new String(chars);
+			    	    		    	         
+			    	    		    	    }
+			    	/*自己写的，不好，用到辅助空间
+			    	 public class Solution {
+    public String ReverseSentence(String str) {
+        if(str==null || str.trim().equals("")) return str;
+        String str1 = Reverse(str);
+        String[] str2 = str1.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<str2.length;i++){
+            if(i!=(str2.length-1)){
+                sb.append(Reverse(str2[i])+" ");
+            }else{
+                sb.append(Reverse(str2[i]));
+            }
+        }
+        return sb.toString();
+    }
+    private String Reverse(String str){
+        if(str==null||str.trim()=="") return str;
+        char[] ch = str.toCharArray();
+        int i = 0;
+        int j = ch.length-1;
+        while(i<j){
+            char temp = ch[i];
+            ch[i] = ch[j];
+            ch[j] = temp;
+            i++;
+            j--;
+        }
+        return new String(ch);
+    }
 }
+			    	 */
+//43扑克牌到顺子
+			    	    		    	public boolean isContinuous(int[] numbers) {
+			    	    		            int numOfZero = 0;
+			    	    		            int numOfInterval = 0;
+			    	    		            int length = numbers.length;
+			    	    		            if(length == 0){
+			    	    		               return false;
+			    	    		            }
+			    	    		            Arrays.sort(numbers);
+			    	    		            for (int i = 0; i < length - 1; i++) {
+			    	    		                // 计算癞子数量
+			    	    		                if (numbers[i] == 0) {
+			    	    		                    numOfZero++;
+			    	    		                    continue;
+			    	    		                }
+			    	    		                // 对子，直接返回
+			    	    		                if (numbers[i] == numbers[i + 1]) {
+			    	    		                    return false;
+			    	    		                }
+			    	    		                numOfInterval += numbers[i + 1] - numbers[i] - 1;
+			    	    		            }
+			    	    		            if (numOfZero >= numOfInterval) {
+			    	    		                return true;
+			    	    		            }
+			    	    		            return false;
+			    	    		        }
+//44孩子们的游戏(圆圈中最后剩下的数)   还有更快速到办法，但不好理解
+			    	    		    	
+			    	    		    		  /*
+			    	    		    		    *这道题我用数组来模拟环，思路还是比较简单，但是各种下标要理清
+			    	    		    		    */
+			    	    		    		    public static int findLastNumber(int n,int m){
+			    	    		    		        if(n<1||m<1) return -1;
+			    	    		    		        int[] array = new int[n];
+			    	    		    		        int i = -1,step = 0, count = n;
+			    	    		    		        while(count>0){   //跳出循环时将最后一个元素也设置为了-1
+			    	    		    		            i++;          //指向上一个被删除对象的下一个元素。
+			    	    		    		            if(i>=n) i=0;  //模拟环。
+			    	    		    		            if(array[i] == -1) continue; //跳过被删除的对象。
+			    	    		    		            step++;                     //记录已走过的。
+			    	    		    		            if(step==m) {               //找到待删除的对象。
+			    	    		    		                array[i]=-1;
+			    	    		    		                step = 0;
+			    	    		    		                count--;
+			    	    		    		            }        
+			    	    		    		        }
+			    	    		    		        return i;//返回跳出循环时的i,即最后一个被设置为-1的元素
+			    	    		    		    }
+			    	    		    		    /*
+			    	    		    		     * 链接：https://www.nowcoder.com/questionTerminal/f78a359491e64a50bce2d89cff857eb6
+												来源：牛客网
+												
+												public int LastRemaining_Solution(int n, int m) {
+												        LinkedList<Integer> list = new LinkedList<Integer>();
+												        for (int i = 0; i < n; i ++) {
+												            list.add(i);
+												        }
+												         
+												        int bt = 0;
+												        while (list.size() > 1) {
+												            bt = (bt + m - 1) % list.size();
+												            list.remove(bt);
+												        }
+												         
+												        return list.size() == 1 ? list.get(0) : -1;
+												    }
+												    
+												    链接：https://www.nowcoder.com/questionTerminal/f78a359491e64a50bce2d89cff857eb6
+												来源：牛客网
+												
+												class Solution {
+												public:
+												    int LastRemaining_Solution(unsigned int n, unsigned int m)
+												    {
+												        if(n==0)
+												            return -1;
+												        if(n==1)
+												            return 0;
+												        else
+												            return (LastRemaining_Solution(n-1,m)+m)%n;
+												    }
+												};
+			    	    		    		     */
+			    	    		    		   
+
+			    	
+			    	    		   
+}
+			    	    		    	
+	   
